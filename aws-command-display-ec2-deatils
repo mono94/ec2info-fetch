@@ -1,0 +1,3 @@
+// command to list aws ec2 OS, type and count
+
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Platform,InstanceType]' --output text --profile=demo --region us-west-2 | sort | uniq -c | awk -F" " 'BEGIN {print "OS""\t\t""MACHINE TYPE""\t\t""COUNT" "\n" "--------------------------------------------" }  {print $2"\t\t"$3"\t\t"$1}'
