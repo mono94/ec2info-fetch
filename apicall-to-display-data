@@ -1,0 +1,46 @@
+import React from "react";
+import { Component } from "react";
+import "./style.css";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      isloaded: false
+    };
+  }
+
+  componentDidMount() {
+    fetch("https://api.covid19india.org/v4/min/data.min.json")
+      .then(res => res.json())
+      .then(json => {
+        console.log(this.state.items)
+        this.setState({
+          isloaded: true,
+          items: json
+        });
+      });
+  }
+
+  render() {
+    var { items = [] } = this.props;
+    var { isloaded } = this.state;
+    if (!isloaded) {
+      return <div> Loading...</div>;
+    } else {
+      return (
+        <div>
+          <ul>
+            {items.map(item => (
+              <li key={item.States}>
+              
+               </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+  }
+}
+export default App;
